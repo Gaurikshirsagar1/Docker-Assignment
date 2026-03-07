@@ -35,3 +35,5 @@ Workflow file: `.github/workflows/ecr-publish.yml` will trigger on pushes to `ma
 4. Build, tag, and push Docker image
 
 After a successful run the image URI is echoed in the actions log.
+
+The image will be available in your AWS ECR repository `hello-world` with the tag matching the commit SHA.

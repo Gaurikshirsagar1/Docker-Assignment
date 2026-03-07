@@ -23,6 +23,14 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
+      - name: Create ECR Repository if not exists
+        env:
+          ECR_REPOSITORY: hello-world
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+        run: |
+          aws ecr describe-repositories --repository-names $ECR_REPOSITORY --region $AWS_REGION || \
+          aws ecr create-repository --repository-name $ECR_REPOSITORY --region $AWS_REGION
+
       - name: Build, tag, and push image to ECR
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}

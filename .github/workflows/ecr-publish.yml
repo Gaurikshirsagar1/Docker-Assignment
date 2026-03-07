@@ -28,8 +28,7 @@ jobs:
           ECR_REPOSITORY: hello-world
           AWS_REGION: ${{ secrets.AWS_REGION }}
         run: |
-          aws ecr describe-repositories --repository-names $ECR_REPOSITORY --region $AWS_REGION || \
-          aws ecr create-repository --repository-name $ECR_REPOSITORY --region $AWS_REGION
+          aws ecr describe-repositories --repository-names $ECR_REPOSITORY --region $AWS_REGION || aws ecr create-repository --repository-name $ECR_REPOSITORY --region $AWS_REGION
 
       - name: Build, tag, and push image to ECR
         env:
@@ -45,4 +44,4 @@ jobs:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: hello-world
           IMAGE_TAG: ${{ github.sha }}
-        run: echo "Image pushed: $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+        run: echo "Image pushed- $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
